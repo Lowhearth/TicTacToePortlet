@@ -4,27 +4,27 @@
 <portlet:actionURL name="/addMove" var="click" />
 <portlet:actionURL name="/restartGame" var="restart" />
 
-<div>
+<div style="text-align: center;">
 	<aui:form action="${click}" method="post">
 		<aui:input type="hidden" name="theMove" id="myMove" />
 	</aui:form>
-	<div style ="display:flex;flex-wrap: wrap;">
-	<c:forEach items="${board.getBoard()}" var="element" varStatus="Index">
-		<c:choose>
-			<c:when test="${Index.index == 3 }">
-				</div>
-				<div style ="display:flex;flex-wrap: wrap;">
-			</c:when>
-			<c:when test="${Index.index == 6 }">
-			  </div>
-				<div style ="display:flex;flex-wrap: wrap;">
-			</c:when>
+	<div class="square">
+		<c:forEach items="${board.getBoard()}" var="element" varStatus="Index">
+			<c:choose>
+				<c:when test="${Index.index == 3 }">
+	</div>
+	<div class="square";">
+		</c:when>
+		<c:when test="${Index.index == 6 }">
+	</div>
+	<div class="square">
+		</c:when>
 		</c:choose>
-		<div style="border-style: solid; height:80px; width:80px; text-align: center; vertical-align: middle;line-height: 80px; font-size: 50px; " 
-			onClick='clicked(this)' id="${Index.index}">${element}
-			</div>
-		
-	</c:forEach>
+		<div
+			style="border-style: solid; height: 80px; width: 80px; text-align: center; vertical-align: middle; line-height: 80px; font-size: 50px;"
+			onClick='clicked(this)' id="${Index.index}">${element}</div>
+
+		</c:forEach>
 	</div>
 	<script> var clicked = (e) => { 
 		document.getElementById("<portlet:namespace />myMove").value = e.id;
@@ -32,16 +32,40 @@
 		}
 	</script>
 	<div>
-	<%
-		String winner= (String) renderRequest.getAttribute("winner");
-		if( winner != null){
-			out.write(winner+  " Wins");
-		}
-	%>
+		<%
+			String winner = (String) renderRequest.getAttribute("winner");
+			if (winner != null) {
+				String[] lineCoordinates = (String[]) renderRequest.getAttribute("lineCoordinates");
+
+				out.write(winner + " Wins");
+		%>
+		<script> 
+			document.getElementById(${lineCoordinates[0]}).className = 'winner';
+			document.getElementById(${lineCoordinates[1]}).className = 'winner';
+			document.getElementById(${lineCoordinates[2]}).className = 'winner';
+			
+			</script>
+		<%
+			}
+		%>
 	</div>
 	<a href="${restart}"> RESTART </a>
-	
+
 
 
 
 </div>
+
+
+<style type="text/css">
+.winner {
+	background-color: #D3D3D3;
+}
+
+.square {
+	display: flex;
+	flex-wrap: wrap;
+	display: flex;
+	justify-content: center;
+}
+</style>

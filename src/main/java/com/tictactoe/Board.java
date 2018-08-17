@@ -9,6 +9,7 @@ public class Board implements Serializable {
 	String turn = "X";
 	Logic logic = new Logic();
 	String winner = "Z";
+	String[] lineCoordinates = new String[3];
 
 	public Board() {
 		this.boardState = Stream.of(this.boardState).map(i -> "").toArray(String[]::new);
@@ -31,6 +32,7 @@ public class Board implements Serializable {
 			this.turn = this.turn.equals("X") ? "O" : "X";
 			if (logic.checkForWinner(this, s)) {
 				this.winner = s;
+				this.lineCoordinates = logic.lineCoordinates;
 				return true;
 			}
 			return true;

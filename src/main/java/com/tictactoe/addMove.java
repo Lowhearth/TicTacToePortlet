@@ -27,15 +27,16 @@ import com.ticktacktoe.constants.TicTacToePortletKeys;
 			int index = Integer.parseInt(i);
 			Board board = (Board) actionRequest.getPortletSession().getAttribute("board");
 			board.setSquare(index, board.turn);
-			System.out.println("setting moveent");
+			
 			if(board.winner != "Z") {
 				System.out.println("winner found" + board.winner);
-				actionRequest.setAttribute("board", board);
+				actionRequest.getPortletSession().setAttribute("board", board);
 				actionRequest.setAttribute("winner", board.winner );
+				actionRequest.setAttribute("lineCoordinates", board.lineCoordinates);
 
 			}
 			else{
-				actionRequest.setAttribute("board", board);
+				actionRequest.getPortletSession().setAttribute("board", board);
 			}
 					}
 	}
