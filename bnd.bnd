@@ -1,0 +1,4 @@
+Bundle-Name: TicTacToe
+Bundle-SymbolicName: com.ticktacktoe
+Bundle-Version: 1.0.0
+Export-Package: com.ticktacktoe.constants
